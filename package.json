@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp scripts assets",
     "watch": "gulp watch",
-    "start": "node dist/index.js",
+    "start": "nodemon dist/index.js",
     "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'"
   },
   "keywords": [],
@@ -26,6 +26,7 @@
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.1.1",
     "mocha": "^3.1.2",
+    "nodemon": "^1.17.4",
     "ts-node": "^3.0.4",
     "typescript": "^2.3.4"
   },

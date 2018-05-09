@@ -1,11 +1,9 @@
 import * as mongoose from 'mongoose';
 
-let Schema = mongoose.Schema;
-
-let userSchema = new Schema({
+let userSchema = new mongoose.Schema({
     name: String,
     password: String,
     admin: Boolean
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);
