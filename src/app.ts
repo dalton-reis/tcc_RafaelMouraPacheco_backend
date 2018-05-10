@@ -13,7 +13,6 @@ class App {
         mongoose.connect('mongodb://localhost/tagarela', {
             useMongoClient: true
         });
-
         this.express = express();
         this.middleware();
         this.routes();
@@ -22,7 +21,7 @@ class App {
     private middleware(): void {
         this.express.use(logger('dev'));
         this.express.use(bodyParser.json());
-        this.express.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(bodyParser.urlencoded({extended: false}));
     }
 
     private routes(): void {
@@ -47,24 +46,24 @@ class App {
             }
         });
 
-        // router.use((req, res, next) => {
-        //     let token: any = req.headers['authorization'];
-        //     if (token) {
-        //         jwt.verify(token, 'accessToken', function (err, decoded) {
-        //             if (err) {
-        //                 return res.status(401).send({
-        //                     message: 'Invalid token.'
-        //                 });
-        //             } else {
-        //                 next();
-        //             }
-        //         })
-        //     } else {
-        //         return res.status(403).send({
-        //             message: 'No token provided.'
-        //         })
-        //     }
-        // });
+        router.use((req, res, next) => {
+            let token: any = req.headers['authorization'];
+            if (token) {
+                jwt.verify(token, 'accessToken', function (err) {
+                    if (err) {
+                        return res.status(401).send({
+                            message: 'Invalid token.'
+                        });
+                    } else {
+                        next();
+                    }
+                })
+            } else {
+                return res.status(403).send({
+                    message: 'No token provided.'
+                })
+            }
+        });
 
         this.express.use('/', router);
         this.express.use('/api/login', LoginRouter);

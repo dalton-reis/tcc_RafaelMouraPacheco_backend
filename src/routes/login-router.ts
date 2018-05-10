@@ -19,36 +19,34 @@ export class LoginRouter {
             });
         });
 
-        // this.router.post('/authenticate', function (req, res) {
-        //     user.findOne({
-        //         name: req.body.name
-        //     }, function (err, user) {
-        //         if (err) {
-        //             res.json(err);
-        //         }
-        //         if (!user) {
-        //             res.json({success: false, message: 'Authentication failed. User not found.'});
-        //         } else if (user) {
-        //             if (user.password != req.body.password) {
-        //                 res.json({success: false, message: 'Authentication failed. Wrong password.'});
-        //             } else {
-        //                 const payload = {
-        //                     admin: user.admin
-        //                 };
-        //                 var token = jwt.sign(payload, 'accessToken', {
-        //                     expiresInMinutes: 1440
-        //                 });
-        //                 res.json({
-        //                     success: true,
-        //                     message: 'Enjoy your token!',
-        //                     token: token
-        //                 });
-        //             }
-        //
-        //         }
-        //
-        //     });
-        // });
+        this.router.post('/authenticate', function (req, res) {
+            user.findOne({
+                name: req.body.name
+            }, function (err, user) {
+                if (err) {
+                    res.json(err);
+                }
+                if (!user) {
+                    res.json({success: false, message: 'Authentication failed. User not found.'});
+                } else if (user) {
+                    if (user.password != req.body.password) {
+                        res.json({success: false, message: 'Authentication failed. Wrong password.'});
+                    } else {
+                        const payload = {
+                            admin: user.admin
+                        };
+                        let token = jwt.sign(payload, 'accessToken', {
+                            expiresIn: 60 * 60 * 24
+                        });
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token
+                        });
+                    }
+                }
+            });
+        });
     }
 }
 
