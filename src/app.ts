@@ -46,24 +46,24 @@ class App {
             }
         });
 
-        router.use((req, res, next) => {
-            let token: any = req.headers['authorization'];
-            if (token) {
-                jwt.verify(token, 'accessToken', function (err) {
-                    if (err) {
-                        return res.status(401).send({
-                            message: 'Invalid token.'
-                        });
-                    } else {
-                        next();
-                    }
-                })
-            } else {
-                return res.status(403).send({
-                    message: 'No token provided.'
-                })
-            }
-        });
+        // router.use((req, res, next) => {
+        //     let token: any = req.headers['authorization'];
+        //     if (token) {
+        //         jwt.verify(token, 'accessToken', function (err) {
+        //             if (err) {
+        //                 return res.status(401).send({
+        //                     message: 'Invalid token.'
+        //                 });
+        //             } else {
+        //                 next();
+        //             }
+        //         })
+        //     } else {
+        //         return res.status(403).send({
+        //             message: 'No token provided.'
+        //         })
+        //     }
+        // });
 
         this.express.use('/', router);
         this.express.use('/api/login', LoginRouter);

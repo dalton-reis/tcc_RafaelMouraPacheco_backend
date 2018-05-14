@@ -19,6 +19,16 @@ export class LoginRouter {
             });
         });
 
+        this.router.post('/users', function (req, res) {
+            let newUser = new user(req.body);
+            newUser.save(function (err, user) {
+                if (err)
+                    res.send(err);
+
+                res.json(user);
+            });
+        });
+
         this.router.post('/authenticate', function (req, res) {
             user.findOne({
                 name: req.body.name
