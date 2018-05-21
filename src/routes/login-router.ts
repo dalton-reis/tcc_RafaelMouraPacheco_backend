@@ -19,14 +19,21 @@ export class LoginRouter {
             });
         });
 
-        this.router.post('/users', function (req, res) {
+        this.router.post('/newUser', function (req, res) {
             let newUser = new user(req.body);
-            newUser.save(function (err, user) {
-                if (err)
-                    res.send(err);
-
-                res.json(user);
-            });
+            if (newUser.name && newUser.password && newUser.role) {
+                newUser.save(function (err, user) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    this.successAction(user, res);
+                });
+            } else {
+                res.send({
+                    success: false,
+                    message: 'There is required field not informed!',
+                });
+            }
         });
 
         this.router.post('/authenticate', function (req, res) {
@@ -42,20 +49,24 @@ export class LoginRouter {
                     if (user.password != req.body.password) {
                         res.json({success: false, message: 'Authentication failed. Wrong password.'});
                     } else {
-                        const payload = {
-                            admin: user.admin
-                        };
-                        let token = jwt.sign(payload, 'accessToken', {
-                            expiresIn: 60 * 60 * 24
-                        });
-                        res.json({
-                            success: true,
-                            message: 'Enjoy your token!',
-                            token: token
-                        });
+                        this.successAction(user, res);
                     }
                 }
             });
+        });
+    }
+
+    private successAction(user, res): void {
+        const payload = {
+            role: user.role
+        };
+        let token = jwt.sign(payload, 'accessToken', {
+            expiresIn: 60 * 60 * 24
+        });
+        res.json({
+            success: true,
+            message: 'Enjoy your token!',
+            token: token
         });
     }
 }
