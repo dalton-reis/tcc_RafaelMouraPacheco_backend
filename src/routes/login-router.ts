@@ -26,7 +26,17 @@ export class LoginRouter {
                     if (err) {
                         res.send(err);
                     }
-                    this.successAction(user, res);
+                    const payload = {
+                        role: user.role
+                    };
+                    let token = jwt.sign(payload, 'accessToken', {
+                        expiresIn: 60 * 60 * 24
+                    });
+                    res.json({
+                        success: true,
+                        message: 'Enjoy your token!',
+                        token: token
+                    });
                 });
             } else {
                 res.send({
@@ -49,26 +59,23 @@ export class LoginRouter {
                     if (user.password != req.body.password) {
                         res.json({success: false, message: 'Authentication failed. Wrong password.'});
                     } else {
-                        this.successAction(user, res);
+                        const payload = {
+                            role: user.role
+                        };
+                        let token = jwt.sign(payload, 'accessToken', {
+                            expiresIn: 60 * 60 * 24
+                        });
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token
+                        });
                     }
                 }
             });
         });
     }
 
-    private successAction(user, res): void {
-        const payload = {
-            role: user.role
-        };
-        let token = jwt.sign(payload, 'accessToken', {
-            expiresIn: 60 * 60 * 24
-        });
-        res.json({
-            success: true,
-            message: 'Enjoy your token!',
-            token: token
-        });
-    }
 }
 
 const loginRouter = new LoginRouter();

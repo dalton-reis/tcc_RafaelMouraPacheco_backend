@@ -1,9 +1,9 @@
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import * as jwt from "jsonwebtoken";
 import * as mongoose from 'mongoose';
 import LoginRouter from "./routes/login-router";
+import BoardRouter from "./routes/board-router";
 
 class App {
 
@@ -67,6 +67,7 @@ class App {
 
         this.express.use('/', router);
         this.express.use('/api/login', LoginRouter);
+        this.express.use('/api/board', BoardRouter);
     }
 
 }
