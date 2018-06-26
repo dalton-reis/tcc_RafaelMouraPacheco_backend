@@ -46,6 +46,33 @@ export class LoginRouter {
             }
         });
 
+        this.router.put('/user/:id', function (req, res) {
+            user.findById(req.params.id, function (err, user) {
+                user.update(req.query, (err) => {
+                    if (err) {
+                        res.json({success: false, message: err});
+                    }
+                    user.findById(req.params.id, function (err, user) {
+                        if (err) {
+                            res.json({success: false, message: err});
+                        }
+                        const payload = {
+                            role: user.role
+                        };
+                        let token = jwt.sign(payload, 'accessToken', {
+                            expiresIn: 60 * 60 * 24
+                        });
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token,
+                            role: user.role
+                        });
+                    });
+                });
+            });
+        });
+
         this.router.post('/authenticate', function (req, res) {
             user.findOne({
                 name: req.body.name
@@ -68,7 +95,8 @@ export class LoginRouter {
                         res.json({
                             success: true,
                             message: 'Enjoy your token!',
-                            token: token
+                            token: token,
+                            role: user.role
                         });
                     }
                 }

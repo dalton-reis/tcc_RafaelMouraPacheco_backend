@@ -10,7 +10,7 @@ class App {
     public express: express.Application;
 
     constructor() {
-        mongoose.connect('mongodb://localhost/tagarela', {
+        mongoose.connect('mongodb://tagarela1:tagarela1@ds217131.mlab.com:17131/heroku_7k8kg5b6', {
             useMongoClient: true
         });
         this.express = express();
@@ -20,7 +20,9 @@ class App {
 
     private middleware(): void {
         this.express.use(logger('dev'));
-        this.express.use(bodyParser.json());
+        this.express.use(bodyParser.json({
+            limit: '5mb'
+        }));
         this.express.use(bodyParser.urlencoded({extended: false}));
     }
 
