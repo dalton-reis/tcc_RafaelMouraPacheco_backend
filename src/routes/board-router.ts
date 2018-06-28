@@ -39,6 +39,25 @@ export class BoardRouter {
                 }
             }
         });
+
+        this.router.delete('/delete/:id', function (req, res) {
+            board.findById(req.params.id, (err, responseByID) => {
+                responseByID.remove(req.body, (err) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    board.find((err) => {
+                        if (err) {
+                            res.status(500).send(err)
+                        }
+                        res.json({
+                            success: true,
+                            message: 'Removed!',
+                        });
+                    });
+                });
+            });
+        });
     }
 
 }

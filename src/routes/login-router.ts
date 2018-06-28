@@ -24,7 +24,7 @@ export class LoginRouter {
             if (newUser.name && newUser.password && newUser.role) {
                 newUser.save(function (err, user) {
                     if (err) {
-                        res.send(err);
+                        res.status(500).send(err);
                     }
                     const payload = {
                         role: user.role
@@ -35,7 +35,8 @@ export class LoginRouter {
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        token: token,
+                        user: user
                     });
                 });
             } else {
@@ -47,14 +48,14 @@ export class LoginRouter {
         });
 
         this.router.put('/user/:id', function (req, res) {
-            user.findById(req.params.id, function (err, user) {
-                user.update(req.query, (err) => {
+            user.findById(req.params.id, (err, responseByID) => {
+                responseByID.update(req.body, (err) => {
                     if (err) {
-                        res.json({success: false, message: err});
+                        res.status(500).send(err);
                     }
-                    user.findById(req.params.id, function (err, user) {
+                    user.find((err, responseByUpdate) => {
                         if (err) {
-                            res.json({success: false, message: err});
+                            res.status(500).send(err)
                         }
                         const payload = {
                             role: user.role
@@ -66,7 +67,7 @@ export class LoginRouter {
                             success: true,
                             message: 'Enjoy your token!',
                             token: token,
-                            role: user.role
+                            user: responseByUpdate
                         });
                     });
                 });
@@ -96,7 +97,7 @@ export class LoginRouter {
                             success: true,
                             message: 'Enjoy your token!',
                             token: token,
-                            role: user.role
+                            user: user
                         });
                     }
                 }
