@@ -20,31 +20,37 @@ export class LoginRouter {
         });
 
         this.router.post('/newUser', function (req, res) {
-            let newUser = new user(req.body);
-            if (newUser.name && newUser.password && newUser.role) {
-                newUser.save(function (err, user) {
-                    if (err) {
-                        res.status(500).send(err);
+            user.findOne({name: req.body.name}, (err, response) => {
+                if (response) {
+                    res.json({success: false, message: 'Usuário já existente.'});
+                } else {
+                    let newUser = new user(req.body);
+                    if (newUser.name && newUser.password && newUser.role) {
+                        newUser.save(function (err, user) {
+                            if (err) {
+                                res.status(500).send(err);
+                            }
+                            const payload = {
+                                role: user.role
+                            };
+                            let token = jwt.sign(payload, 'accessToken', {
+                                expiresIn: 60 * 60 * 24
+                            });
+                            res.json({
+                                success: true,
+                                message: 'Enjoy your token!',
+                                token: token,
+                                user: user
+                            });
+                        });
+                    } else {
+                        res.send({
+                            success: false,
+                            message: 'Campo obrigatório não preenchido',
+                        });
                     }
-                    const payload = {
-                        role: user.role
-                    };
-                    let token = jwt.sign(payload, 'accessToken', {
-                        expiresIn: 60 * 60 * 24
-                    });
-                    res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token,
-                        user: user
-                    });
-                });
-            } else {
-                res.send({
-                    success: false,
-                    message: 'There is required field not informed!',
-                });
-            }
+                }
+            });
         });
 
         this.router.put('/user/:id', function (req, res) {
