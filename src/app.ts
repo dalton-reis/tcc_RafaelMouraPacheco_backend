@@ -6,11 +6,10 @@ import LoginRouter from "./routes/login-router";
 import BoardRouter from "./routes/board-router";
 
 class App {
-
     public express: express.Application;
 
     constructor() {
-        mongoose.connect('', {
+        mongoose.connect('mongodb://tagarela1:tagarela1@ds163757.mlab.com:63757/heroku_4c717002', {
             useMongoClient: true
         });
         this.express = express();
