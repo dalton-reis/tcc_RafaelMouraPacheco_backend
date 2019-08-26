@@ -1,14 +1,20 @@
 const express = require("express");
 const multer = require("multer");
 const multerConfig = require("./config/multer");
-const routes = express.Router();
+const router = express.Router();
 const BoardController = require("./controllers/BoardController");
+const UserController = require("./controllers/UserController");
 const FileController = require("./controllers/FileController");
+const authMiddleware = require("./middlewares/auth");
 
-routes.post("/boards", BoardController.store);
-routes.get("/boards/:id", BoardController.show);
-routes.post("/boards/:id/files", multer(multerConfig).single("file"), //.array() Para enviar multiplos arquivos
+router.get("/me", UserController.me);
+router.post("/register", UserController.register);
+router.post("/authenticate", UserController.authenticate);
+router.use(authMiddleware);
+
+router.get("/boards/:id", BoardController.show);
+router.post("/boards/:id/files", multer(multerConfig).single("file"), //.array() Para enviar multiplos arquivos
   FileController.store
 );
 
-module.exports = routes;
+module.exports = router;
