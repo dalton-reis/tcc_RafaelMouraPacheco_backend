@@ -1,9 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const multerConfig = require("./config/multer");
-
 const routes = express.Router();
-
 const BoardController = require("./controllers/BoardController");
 const FileController = require("./controllers/FileController");
 
