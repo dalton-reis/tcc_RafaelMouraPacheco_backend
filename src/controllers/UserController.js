@@ -2,7 +2,7 @@ const User = require("../models/User");
 
 class UserController {
   async register(req, res) {
-    const { email, username } = req.body;
+    const { email } = req.body;
 
     try {
       if (await User.findOne({ email })) {
