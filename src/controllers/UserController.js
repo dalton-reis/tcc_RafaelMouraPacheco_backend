@@ -11,7 +11,10 @@ class UserController {
 
       const user = await User.create(req.body);
 
-      return res.json({ user });
+      return res.json({
+        user,
+        token: user.generateToken()
+      });
     } catch (err) {
       return res.status(400).json({ error: "User registration failed" });
     }
