@@ -1,12 +1,11 @@
-const User = require("../models/User");
+const User = require('../models/User');
 
 class UserController {
   async register(req, res) {
     const { email } = req.body;
-
     try {
       if (await User.findOne({ email })) {
-        return res.status(400).json({ error: "User already exists" });
+        return res.status(400).json({ error: 'User already exists' });
       }
 
       const user = await User.create(req.body);
@@ -16,22 +15,27 @@ class UserController {
         token: user.generateToken()
       });
     } catch (err) {
-      return res.status(400).json({ error: "User registration failed" });
+      return res.status(400).json({ error: 'User registration failed' });
     }
+  }
+
+  async update(req, res) {
+    const { email } = req.body;
+    const user = await User.findByIdAndUpdate(email, req.body, { new: true });
+    return res.json({ user, token: user.generateToken() });
   }
 
   async authenticate(req, res) {
     try {
       const { email, password } = req.body;
-
       const user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ error: "User not found" });
+        return res.status(400).json({ error: 'User not found' });
       }
 
       if (!(await user.compareHash(password))) {
-        return res.status(400).json({ error: "Invalid password" });
+        return res.status(400).json({ error: 'Invalid password' });
       }
 
       return res.json({
@@ -39,14 +43,13 @@ class UserController {
         token: user.generateToken()
       });
     } catch (err) {
-      return res.status(400).json({ error: "User authentication failed" });
+      return res.status(400).json({ error: 'User authentication failed' });
     }
   }
 
   async me(req, res) {
     try {
       const { userId } = req;
-
       const user = await User.findById(userId);
 
       return res.json({ user });
