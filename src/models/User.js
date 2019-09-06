@@ -14,11 +14,13 @@ const User = new mongoose.Schema({
     lowercase: true
   },
   password: {
-    type: String
+    type: String,
+    require: true
   },
-  role: {
-    type: String
-  },
+  roles: [{
+    type: String,
+    require: true
+  }],
   createdAt: {
     type: Date,
     default: Date.now

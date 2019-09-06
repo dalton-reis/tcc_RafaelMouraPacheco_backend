@@ -5,6 +5,7 @@ const router = express.Router();
 const BoardController = require("./controllers/BoardController");
 const UserController = require("./controllers/UserController");
 const FileController = require("./controllers/FileController");
+const ModuleController = require("./controllers/ModuleController");
 const authMiddleware = require("./middlewares/auth");
 
 router.get("/me", UserController.me);
@@ -18,5 +19,9 @@ router.get("/boards/:id", BoardController.show);
 router.post("/boards/:id/files", multer(multerConfig).single("file"), //.array() Para enviar multiplos arquivos
   FileController.store
 );
+
+router.post("/module", ModuleController.store);
+router.get("/modules", ModuleController.getAll);
+router.put("/module/:id", ModuleController.update);
 
 module.exports = router;
