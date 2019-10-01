@@ -3,6 +3,7 @@ const multer = require("multer");
 const multerConfig = require("./config/multer");
 const router = express.Router();
 const BoardController = require("./controllers/BoardController");
+const PlanController = require("./controllers/PlanController");
 const UserController = require("./controllers/UserController");
 const FileController = require("./controllers/FileController");
 const ModuleController = require("./controllers/ModuleController");
@@ -20,6 +21,9 @@ router.get("/boards/:id", BoardController.show);
 router.post("/boards/:id/files", multer(multerConfig).single("file"), //.array() Para enviar multiplos arquivos
   FileController.store
 );
+
+router.post("/plan", PlanController.store);
+router.get("/plans", PlanController.getAll);
 
 router.post("/module", ModuleController.store);
 router.get("/modules", ModuleController.getAll);
