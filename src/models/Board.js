@@ -6,7 +6,11 @@ const Board = new mongoose.Schema(
       type: String,
       required: true
     },
-    images: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }]
+    images: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }],
+    planIn: {
+      type: String,
+      required: true
+    },
   },
   {
     timestamps: true

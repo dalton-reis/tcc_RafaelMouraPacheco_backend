@@ -15,6 +15,15 @@ class BoardController {
     return res.json(board);
   }
 
+  async showByPlan(req, res) {
+    const board = await Board.find({planId: req.params.planId}).populate({
+      path: "files",
+      options: { sort: { createdAt: -1 } }
+    });
+
+    return res.json(board);
+  }
+
   async getAll(req, res) {
     const boards = await Board.find({}).populate({
       path: "files",
