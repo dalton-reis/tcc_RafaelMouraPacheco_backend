@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Board = new mongoose.Schema(
   {
@@ -6,15 +6,15 @@ const Board = new mongoose.Schema(
       type: String,
       required: true
     },
-    images: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }],
-    planIn: {
+    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
+    planId: {
       type: String,
       required: true
-    },
+    }
   },
   {
     timestamps: true
   }
 );
 
-module.exports = mongoose.model("Board", Board);
+module.exports = mongoose.model('Board', Board);

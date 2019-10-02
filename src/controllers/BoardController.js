@@ -1,4 +1,4 @@
-const Board = require("../models/Board");
+const Board = require('../models/Board');
 
 class BoardController {
   async store(req, res) {
@@ -8,7 +8,7 @@ class BoardController {
 
   async show(req, res) {
     const board = await Board.findById(req.params.id).populate({
-      path: "files",
+      path: 'files',
       options: { sort: { createdAt: -1 } }
     });
 
@@ -16,8 +16,8 @@ class BoardController {
   }
 
   async showByPlan(req, res) {
-    const board = await Board.find({planId: req.params.planId}).populate({
-      path: "files",
+    const board = await Board.find({ planId: req.params.planId }).populate({
+      path: 'files',
       options: { sort: { createdAt: -1 } }
     });
 
@@ -26,7 +26,7 @@ class BoardController {
 
   async getAll(req, res) {
     const boards = await Board.find({}).populate({
-      path: "files",
+      path: 'files',
       options: { sort: { createdAt: -1 } }
     });
 

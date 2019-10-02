@@ -1,4 +1,4 @@
-const Plan = require("../models/Plan");
+const Plan = require('../models/Plan');
 
 class PlanController {
   async store(req, res) {
@@ -8,7 +8,7 @@ class PlanController {
 
   async getAll(req, res) {
     const boards = await Plan.find({}).populate({
-      path: "files",
+      path: 'files',
       options: { sort: { createdAt: -1 } }
     });
 
