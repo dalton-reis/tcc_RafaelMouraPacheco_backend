@@ -20,9 +20,11 @@ class UserController {
   }
 
   async updateModules(req, res) {
-    const { email, modules } = req.body;
-    const user = await User.findByIdAndUpdate(
-      email,
+    const { _id, modules } = req.body;
+    const user = await User.update(
+      {
+        _id: _id
+      },
       {
         $set: {
           modules: modules
