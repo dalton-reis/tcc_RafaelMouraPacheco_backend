@@ -12,7 +12,7 @@ const authMiddleware = require("./middlewares/auth");
 router.get("/me", UserController.me);
 router.post("/register", UserController.register);
 router.post("/authenticate", UserController.authenticate);
-router.put("/userUpdate", UserController.update);
+router.put("/updateModules", UserController.updateModules);
 router.use(authMiddleware);
 
 router.post("/board", BoardController.store);

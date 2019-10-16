@@ -19,9 +19,19 @@ class UserController {
     }
   }
 
-  async update(req, res) {
-    const { email } = req.body;
-    const user = await User.findByIdAndUpdate(email, req.body, { new: true });
+  async updateModules(req, res) {
+    const { email, modules } = req.body;
+    const user = await User.findByIdAndUpdate(
+      email,
+      {
+        $set: {
+          modules: modules
+        }
+      },
+      {
+        new: true
+      }
+    );
     return res.json({ user, token: user.generateToken() });
   }
 
