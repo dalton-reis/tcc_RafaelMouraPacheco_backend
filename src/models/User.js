@@ -25,6 +25,10 @@ const User = new mongoose.Schema({
   ],
   modules: [
     {
+      title: {
+        type: String,
+        require: true
+      },
       name: {
         type: String,
         require: true
