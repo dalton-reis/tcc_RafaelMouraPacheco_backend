@@ -21,6 +21,10 @@ const User = new mongoose.Schema({
     type: String,
     require: true
   }],
+  modules: [{
+    type: String,
+    require: true
+  }],
   createdAt: {
     type: Date,
     default: Date.now
