@@ -23,22 +23,6 @@ const User = new mongoose.Schema({
       require: true
     }
   ],
-  modules: [
-    {
-      title: {
-        type: String,
-        require: true
-      },
-      name: {
-        type: String,
-        require: true
-      },
-      isVisible: {
-        type: Boolean,
-        require: true
-      }
-    }
-  ],
   createdAt: {
     type: Date,
     default: Date.now

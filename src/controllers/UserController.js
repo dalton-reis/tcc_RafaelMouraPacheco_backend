@@ -19,24 +19,6 @@ class UserController {
     }
   }
 
-  async updateModules(req, res) {
-    const { _id, modules } = req.body;
-    const user = await User.update(
-      {
-        _id: _id
-      },
-      {
-        $set: {
-          modules: modules
-        }
-      },
-      {
-        new: true
-      }
-    );
-    return res.json({ user, token: user.generateToken() });
-  }
-
   async authenticate(req, res) {
     try {
       const { email, password } = req.body;
@@ -61,10 +43,16 @@ class UserController {
 
   async me(req, res) {
     try {
-      const { userId } = req;
-      const user = await User.findById(userId);
+      const user = await User.findById(req.params.id);
 
-      return res.json({ user });
+      if (!user) {
+        return res.status(400).json({ error: 'User not found' });
+      }
+
+      return res.json({
+        user,
+        token: user.generateToken()
+      });
     } catch (err) {
       return res.status(400).json({ error: "Can't get user information" });
     }

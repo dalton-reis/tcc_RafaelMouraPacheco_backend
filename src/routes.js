@@ -9,10 +9,9 @@ const FileController = require("./controllers/FileController");
 const ModuleController = require("./controllers/ModuleController");
 const authMiddleware = require("./middlewares/auth");
 
-router.get("/me", UserController.me);
+router.get("/me/:id", UserController.me);
 router.post("/register", UserController.register);
 router.post("/authenticate", UserController.authenticate);
-router.put("/updateModules", UserController.updateModules);
 router.use(authMiddleware);
 
 router.post("/board", BoardController.store);
