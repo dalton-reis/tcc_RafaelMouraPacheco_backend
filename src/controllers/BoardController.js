@@ -6,6 +6,11 @@ class BoardController {
     return res.json(board);
   }
 
+  async update(req, res) {
+    const board = await Board.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    return res.json(board);
+  }
+
   async show(req, res) {
     const board = await Board.findById(req.params.id).populate({
       path: 'files',

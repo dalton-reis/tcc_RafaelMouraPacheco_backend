@@ -15,6 +15,7 @@ router.post("/authenticate", UserController.authenticate);
 router.use(authMiddleware);
 
 router.post("/board", BoardController.store);
+router.post("/board/:id", BoardController.update);
 router.get("/boards", BoardController.getAll);
 router.get("/boards/:id", BoardController.show);
 router.get("/boards/:planId/plan", BoardController.showByPlan);
