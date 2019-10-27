@@ -23,6 +23,12 @@ const User = new mongoose.Schema({
       require: true
     }
   ],
+  linkedUsers: [
+    {
+      type: String,
+      require: true
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now

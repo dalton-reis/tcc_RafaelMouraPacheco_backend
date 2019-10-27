@@ -57,6 +57,31 @@ class UserController {
       return res.status(400).json({ error: "Can't get user information" });
     }
   }
+
+  async linkUser(req, res) {
+    try {
+      const { linkedUserEmail, email } = req.body;
+
+      const user = await User.findOne({ email });
+      const linkedUser = await User.findOne({ email: linkedUserEmail });
+
+      if (!linkedUser) {
+        return res.status(400).json({ error: 'User to link not found' });
+      }
+
+      user.linkedUsers.push(linkedUser.email);
+      linkedUser.linkedUsers.push(linkedUser.email);
+
+      await user.save();
+      await linkedUser.save();
+
+      return res.json({
+        linkedUser: linkedUser
+      });
+    } catch (err) {
+      return res.status(400).json({ error: 'User link failed' });
+    }
+  }
 }
 
 module.exports = new UserController();
