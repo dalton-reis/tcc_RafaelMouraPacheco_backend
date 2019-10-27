@@ -26,6 +26,7 @@ router.post("/boards/:id/files", multer(multerConfig).single("file"), //.array()
 
 router.post("/plan", PlanController.store);
 router.get("/plans", PlanController.getAll);
+router.get("/plan/:owner", PlanController.showByPlanByOwner);
 
 router.post("/module", ModuleController.store);
 router.get("/modules", ModuleController.getAll);
