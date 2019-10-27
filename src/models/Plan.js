@@ -13,6 +13,10 @@ const Plan = new mongoose.Schema(
     type: {
       type: String,
       required: true
+    },
+    owner: {
+      type: String,
+      required: true
     }
   },
   {
