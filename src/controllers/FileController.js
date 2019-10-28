@@ -27,6 +27,15 @@ class FileController {
 
     return res.json(file);
   }
+
+  async showMultipleIds(req, res) {
+    const file = await File.find({ _id: { $in: req.params.ids } }).populate({
+      path: 'files',
+      options: { sort: { createdAt: -1 } }
+    });
+
+    return res.json(file);
+  }
 }
 
 module.exports = new FileController();

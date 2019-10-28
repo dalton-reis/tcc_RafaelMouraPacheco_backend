@@ -27,6 +27,7 @@ router.post(
   FileController.store
 );
 router.get('/file/:id', FileController.show);
+router.post('/files', FileController.showMultipleIds);
 
 router.post('/plan', PlanController.store);
 router.get('/plans', PlanController.getAll);
