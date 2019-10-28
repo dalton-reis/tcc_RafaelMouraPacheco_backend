@@ -1,6 +1,6 @@
 const Board = require('../models/Board');
 const File = require('../models/File');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 class FileController {
   async store(req, res) {
@@ -31,7 +31,7 @@ class FileController {
 
   async showMultipleIds(req, res) {
     const file = await File.find({
-      _id: { $in: req.body.ids }
+      _id: { $in: req.body }
     }).populate({
       path: 'files',
       options: { sort: { createdAt: -1 } }
