@@ -1,9 +1,9 @@
-const Board = require("../models/Board");
-const File = require("../models/File");
+const Board = require('../models/Board');
+const File = require('../models/File');
 
 class FileController {
   async store(req, res) {
-    const board = await Board.findById(req.params.id);
+    const board = await Board.findById(req.params.boardId);
 
     const file = await File.create({
       name: req.file.originalname,
@@ -14,7 +14,16 @@ class FileController {
 
     await board.save();
 
-    req.io.sockets.in(board._id).emit("file", file);
+    req.io.sockets.in(board._id).emit('file', file);
+
+    return res.json(file);
+  }
+
+  async show(req, res) {
+    const file = await File.findById(req.params.id).populate({
+      path: 'files',
+      options: { sort: { createdAt: -1 } }
+    });
 
     return res.json(file);
   }
