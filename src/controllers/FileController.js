@@ -1,6 +1,6 @@
 const Board = require('../models/Board');
 const File = require('../models/File');
-const mongoose = require('mongoose');
+const Symbol = require('../models/Symbol');
 
 class FileController {
   async store(req, res) {
@@ -18,6 +18,29 @@ class FileController {
     req.io.sockets.in(board._id).emit('file', file);
 
     return res.json(file);
+  }
+
+  async storeSymbol(req, res) {
+    const symbol = await Symbol.findById(req.params.symbolId);
+
+    const audio = await File.create({
+      name: req.audioFile.originalname,
+      path: req.audioFile.key
+    });
+
+    const image = await File.create({
+      name: req.imageFile.originalname,
+      path: req.imageFile.key
+    });
+
+    symbol.audio = audio;
+    symbol.image = image;
+
+    await symbol.save();
+
+    req.io.sockets.in(symbol._id).emit('file', audio);
+
+    return res.json(symbol);
   }
 
   async show(req, res) {

@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const multerConfig = require('./config/multer');
 const router = express.Router();
+const SymbolController = require('./controllers/SymbolController');
 const BoardController = require('./controllers/BoardController');
 const PlanController = require('./controllers/PlanController');
 const UserController = require('./controllers/UserController');
@@ -26,6 +27,11 @@ router.post(
   multer(multerConfig).single('file'), //.array() Para enviar multiplos arquivos
   FileController.store
 );
+router.post(
+  '/saveSymbol/:symbolId',
+  multer(multerConfig).single('file'),
+  FileController.storeSymbol
+);
 router.get('/file/:id', FileController.show);
 router.post('/files', FileController.showMultipleIds);
 
@@ -36,5 +42,10 @@ router.get('/plan/:owner', PlanController.showByPlanByOwner);
 router.post('/module', ModuleController.store);
 router.get('/modules', ModuleController.getAll);
 router.put('/module/:id', ModuleController.update);
+
+router.post('/symbol', SymbolController.store);
+router.put('/symbol/:id', SymbolController.update);
+router.get('/symbols', SymbolController.getAll);
+router.get('/symbols/:id', SymbolController.show);
 
 module.exports = router;
