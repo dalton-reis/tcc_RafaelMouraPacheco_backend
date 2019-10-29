@@ -29,7 +29,7 @@ router.post(
 );
 router.post(
   '/saveSymbol/:symbolId',
-  multer(multerConfig).single('file'),
+  multer(multerConfig).fields([{ name: 'audioFile' }, { name: 'imageFile' }]),
   FileController.storeSymbol
 );
 router.get('/file/:id', FileController.show);

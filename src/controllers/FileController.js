@@ -24,21 +24,19 @@ class FileController {
     const symbol = await Symbol.findById(req.params.symbolId);
 
     const audio = await File.create({
-      name: req.audioFile.originalname,
-      path: req.audioFile.key
+      name: req.files.audioFile.originalname,
+      path: req.files.audioFile.key
     });
 
     const image = await File.create({
-      name: req.imageFile.originalname,
-      path: req.imageFile.key
+      name: req.files.imageFile.originalname,
+      path: req.files.imageFile.key
     });
 
-    symbol.audio = audio;
-    symbol.image = image;
+    symbol.audio.push(audio);
+    symbol.image.push(image);
 
     await symbol.save();
-
-    req.io.sockets.in(symbol._id).emit('file', audio);
 
     return res.json(symbol);
   }
