@@ -7,7 +7,10 @@ class PlanController {
   }
 
   async getAll(req, res) {
-    const boards = await Plan.find({});
+    const boards = await Plan.find({}).populate({
+      path: 'files',
+      options: { sort: { createdAt: -1 } }
+    });
 
     return res.json(boards);
   }

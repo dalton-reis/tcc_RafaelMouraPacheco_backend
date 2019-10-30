@@ -12,7 +12,10 @@ class CategoryController {
   }
 
   async getAll(req, res) {
-    const categories = await Category.find({});
+    const categories = await Category.find({}).populate({
+      path: 'files',
+      options: { sort: { createdAt: -1 } }
+    });
     return res.json(categories);
   }
 }
