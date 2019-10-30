@@ -7,8 +7,16 @@ const Board = new mongoose.Schema(
       required: true
     },
     symbols: [
-      { symbolId: { type: String, required: true } },
-      { boardIndex: { type: Number, required: true } }
+      {
+        symbolId: {
+          type: String,
+          required: true
+        },
+        boardIndex: {
+          type: Number,
+          required: true
+        }
+      }
     ],
     planId: {
       type: String,
