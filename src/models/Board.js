@@ -6,7 +6,10 @@ const Board = new mongoose.Schema(
       type: String,
       required: true
     },
-    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
+    symbols: [
+      { symbolId: { type: String, required: true } },
+      { boardIndex: { type: Number, required: true } }
+    ],
     planId: {
       type: String,
       required: true
