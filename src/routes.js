@@ -21,7 +21,7 @@ router.post('/board', BoardController.store);
 router.put('/board/:id', BoardController.update);
 router.get('/boards', BoardController.getAll);
 router.get('/boards/:id', BoardController.show);
-router.get('/boards/:planId/plan', BoardController.showByPlan);
+router.get('/board/:planId', BoardController.showByPlan);
 
 router.post(
   '/saveFile/:boardId',
