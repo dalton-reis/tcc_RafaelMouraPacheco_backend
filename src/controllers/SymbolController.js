@@ -1,4 +1,5 @@
 const Symbol = require('../models/Symbol');
+const File = require('../models/File');
 
 class SymbolController {
   async store(req, res) {
@@ -36,6 +37,28 @@ class SymbolController {
       path: 'files',
       options: { sort: { createdAt: -1 } }
     });
+
+    for (let index = 0; index < symbol.length; index++) {
+      const element = symbol[index];
+
+      const audio = await File.find({
+        _id: { $in: element.audio }
+      }).populate({
+        path: 'files',
+        options: { sort: { createdAt: -1 } }
+      });
+
+      element.audio = audio;
+
+      const image = await File.find({
+        _id: { $in: element.image }
+      }).populate({
+        path: 'files',
+        options: { sort: { createdAt: -1 } }
+      });
+
+      element.image = image;
+    }
 
     return res.json(symbol);
   }
