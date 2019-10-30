@@ -28,6 +28,17 @@ class SymbolController {
 
     return res.json(symbols);
   }
+
+  async showMultipleIds(req, res) {
+    const symbol = await Symbol.find({
+      _id: { $in: req.body }
+    }).populate({
+      path: 'files',
+      options: { sort: { createdAt: -1 } }
+    });
+
+    return res.json(symbol);
+  }
 }
 
 module.exports = new SymbolController();

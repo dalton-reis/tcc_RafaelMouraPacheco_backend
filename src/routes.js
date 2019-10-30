@@ -50,7 +50,8 @@ router.put('/module/:id', ModuleController.update);
 router.post('/symbol', SymbolController.store);
 router.put('/symbol/:id', SymbolController.update);
 router.get('/symbols', SymbolController.getAll);
-router.get('/symbols/:id', SymbolController.show);
+router.get('/symbol/:id', SymbolController.show);
+router.post('/symbolsById', SymbolController.showMultipleIds);
 
 router.post('/category', CategoryController.store);
 router.get('/categories', CategoryController.getAll);
