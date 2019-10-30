@@ -20,4 +20,4 @@ const Category = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Module', Category);
+module.exports = mongoose.model('Category', Category);
