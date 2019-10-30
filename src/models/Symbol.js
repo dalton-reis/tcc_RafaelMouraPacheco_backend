@@ -15,7 +15,11 @@ const Symbol = new mongoose.Schema(
       required: true
     },
     image: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
-    audio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
+    audio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
+    categoryId: {
+      type: String,
+      required: true
+    }
   },
   {
     timestamps: true

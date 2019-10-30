@@ -7,15 +7,12 @@ class ModuleController {
   }
 
   async update(req, res) {
-    const module = await Module.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const module = await Module.findByIdAndUpdate(req.params.id, req.body, { new: true });
     return res.json(module);
   }
 
   async getAll(req, res) {
-    const modules = await Module.find({}).populate({
-      path: 'files',
-      options: { sort: { createdAt: -1 } }
-    });
+    const modules = await Module.find({});
 
     return res.json(modules);
   }

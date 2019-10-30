@@ -8,6 +8,7 @@ const PlanController = require('./controllers/PlanController');
 const UserController = require('./controllers/UserController');
 const FileController = require('./controllers/FileController');
 const ModuleController = require('./controllers/ModuleController');
+const CategoryController = require('./controllers/CategoryController');
 const authMiddleware = require('./middlewares/auth');
 
 router.get('/me/:id', UserController.me);
@@ -50,5 +51,9 @@ router.post('/symbol', SymbolController.store);
 router.put('/symbol/:id', SymbolController.update);
 router.get('/symbols', SymbolController.getAll);
 router.get('/symbols/:id', SymbolController.show);
+
+router.post('/category', CategoryController.store);
+router.get('/categories', CategoryController.getAll);
+router.put('/category/:id', CategoryController.update);
 
 module.exports = router;
