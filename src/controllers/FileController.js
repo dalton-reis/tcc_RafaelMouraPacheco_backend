@@ -38,7 +38,8 @@ class FileController {
 
     await symbol.save();
 
-    req.io.sockets.in(symbol._id).emit('imageFile', image);
+    req.io.sockets.in(symbol._id).emit('file', audio);
+    req.io.sockets.in(symbol._id).emit('file', image);
 
     return res.json(symbol);
   }
