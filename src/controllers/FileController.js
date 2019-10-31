@@ -38,14 +38,14 @@ class FileController {
 
     await symbol.save();
 
+    req.io.sockets.in(symbol._id).emit('audioFile', audioFile);
+    req.io.sockets.in(symbol._id).emit('imageFile', imageFile);
+
     return res.json(symbol);
   }
 
   async show(req, res) {
-    const file = await File.findById(req.params.id).populate({
-      path: 'files',
-      options: { sort: { createdAt: -1 } }
-    });
+    const file = await File.findById(req.params.id);
 
     return res.json(file);
   }
