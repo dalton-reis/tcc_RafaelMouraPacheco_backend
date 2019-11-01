@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
 
-const dirname = path.resolve(__dirname, "..", "..");
+const dirname = path.resolve(__dirname, "..", "..", "tmp");
 
 module.exports = {
   dest: dirname,
