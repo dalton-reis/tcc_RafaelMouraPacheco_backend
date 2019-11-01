@@ -8,7 +8,8 @@ class FileController {
 
     const file = await File.create({
       name: req.file.originalname,
-      path: req.file.key
+      path: req.file.key,
+      url: ""
     });
 
     board.images.push(file);
@@ -23,14 +24,19 @@ class FileController {
   async storeSymbol(req, res) {
     const symbol = await Symbol.findById(req.params.symbolId);
 
+    const audioFile = req.files.audioFile[0];
+    const imageFile = req.files.audioFile[0];
+
     const audio = await File.create({
-      name: req.files.audioFile[0].originalname,
-      path: req.files.audioFile[0].key
+      name: audioFile.originalname,
+      path: audioFile.key,
+      url: audioFile.location,
     });
 
     const image = await File.create({
-      name: req.files.imageFile[0].originalname,
-      path: req.files.imageFile[0].key
+      name: imageFile.originalname,
+      path: imageFile.key,
+      url: imageFile.location
     });
 
     symbol.audio.push(audio);

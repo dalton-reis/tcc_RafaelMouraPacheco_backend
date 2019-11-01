@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const File = new mongoose.Schema(
   {
@@ -7,6 +7,10 @@ const File = new mongoose.Schema(
       required: true
     },
     path: {
+      type: String,
+      required: true
+    },
+    url: {
       type: String,
       required: true
     }
@@ -18,10 +22,10 @@ const File = new mongoose.Schema(
   }
 );
 
-File.virtual("url").get(function() {
-  const url = "https://tagarela-backend.herokuapp.com";
-
-  return `${url}/files/${encodeURIComponent(this.path)}`;
+PostSchema.pre('save', function() {
+  if (!this.url) {
+    this.url = `${process.env.APP_URL}/files/${this.key}`;
+  }
 });
 
-module.exports = mongoose.model("File", File);
+module.exports = mongoose.model('File', File);
