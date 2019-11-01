@@ -25,7 +25,7 @@ class FileController {
     const symbol = await Symbol.findById(req.params.symbolId);
 
     const audioFile = req.files.audioFile[0];
-    const imageFile = req.files.audioFile[0];
+    const imageFile = req.files.imageFile[0];
 
     const audio = await File.create({
       name: audioFile.originalname,
