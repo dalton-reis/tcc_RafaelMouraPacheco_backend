@@ -15,7 +15,7 @@ router.get('/me/:id', UserController.me);
 router.post('/register', UserController.register);
 router.post('/authenticate', UserController.authenticate);
 router.post('/linkUser', UserController.linkUser);
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.post('/board', BoardController.store);
 router.put('/board/:id', BoardController.update);
