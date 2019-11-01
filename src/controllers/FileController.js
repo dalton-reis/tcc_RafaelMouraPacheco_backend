@@ -9,7 +9,7 @@ class FileController {
     const file = await File.create({
       name: req.file.originalname,
       path: req.file.key,
-      url: ""
+      url: req.file.location
     });
 
     board.images.push(file);
