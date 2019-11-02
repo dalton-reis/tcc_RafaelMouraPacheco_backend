@@ -12,8 +12,8 @@ class SymbolController {
     return res.json(symbol);
   }
 
-  async show(req, res) {
-    const symbol = await Symbol.findById(req.params.id).populate({
+  async showByCategory(req, res) {
+    const symbol = await Symbol.find({ categoryId: req.params.categoryId }).populate({
       path: 'files',
       options: { sort: { createdAt: -1 } }
     });

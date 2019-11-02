@@ -15,7 +15,7 @@ router.get('/me/:id', UserController.me);
 router.post('/register', UserController.register);
 router.post('/authenticate', UserController.authenticate);
 router.post('/linkUser', UserController.linkUser);
-// router.use(authMiddleware);
+router.use(authMiddleware);
 
 router.post('/board', BoardController.store);
 router.put('/board/:id', BoardController.update);
@@ -50,7 +50,7 @@ router.put('/module/:id', ModuleController.update);
 router.post('/symbol', SymbolController.store);
 router.put('/symbol/:id', SymbolController.update);
 router.get('/symbols', SymbolController.getAll);
-router.get('/symbol/:id', SymbolController.show);
+router.get('/symbol/:categoryId', SymbolController.showByCategory);
 router.post('/symbolsById', SymbolController.showMultipleIds);
 
 router.post('/category', CategoryController.store);
