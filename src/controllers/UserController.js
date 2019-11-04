@@ -70,7 +70,7 @@ class UserController {
       }
 
       user.linkedUsers.push(linkedUser.email);
-      linkedUser.linkedUsers.push(linkedUser.email);
+      linkedUser.linkedUsers.push(user.email);
 
       await user.save();
       await linkedUser.save();
