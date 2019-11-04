@@ -5,7 +5,7 @@ class UserController {
     const { email } = req.body;
     try {
       if (await User.findOne({ email })) {
-        return res.status(400).json({ error: 'User already exists' });
+        return res.status(400).json('Usuário já cadastrado');
       }
 
       const user = await User.create(req.body);
@@ -15,7 +15,7 @@ class UserController {
         token: user.generateToken()
       });
     } catch (err) {
-      return res.status(400).json({ error: 'User registration failed' });
+      return res.status(400).json('Não foi possível realizar o cadastro');
     }
   }
 
@@ -25,11 +25,11 @@ class UserController {
       const user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ error: 'User not found' });
+        return res.status(400).json('Usuário ou senha incorretos');
       }
 
       if (!(await user.compareHash(password))) {
-        return res.status(400).json({ error: 'Invalid password' });
+        return res.status(400).json('Usuário ou senha incorretos');
       }
 
       return res.json({
@@ -37,7 +37,7 @@ class UserController {
         token: user.generateToken()
       });
     } catch (err) {
-      return res.status(400).json({ error: 'User authentication failed' });
+      return res.status(400).json('Não foi possível realizar o login');
     }
   }
 
@@ -46,7 +46,7 @@ class UserController {
       const user = await User.findById(req.params.id);
 
       if (!user) {
-        return res.status(400).json({ error: 'User not found' });
+        return res.status(400).json('Usuário não encontrado');
       }
 
       return res.json({
@@ -54,7 +54,7 @@ class UserController {
         token: user.generateToken()
       });
     } catch (err) {
-      return res.status(400).json({ error: "Can't get user information" });
+      return res.status(400).json('Não foi possível realizar o login');
     }
   }
 
@@ -66,7 +66,7 @@ class UserController {
       const linkedUser = await User.findOne({ email: linkedUserEmail });
 
       if (!linkedUser) {
-        return res.status(400).json({ error: 'User to link not found' });
+        return res.status(400).json('Usuário não encontrado');
       }
 
       user.linkedUsers.push(linkedUser.email);
@@ -79,7 +79,7 @@ class UserController {
         linkedUser: linkedUser
       });
     } catch (err) {
-      return res.status(400).json({ error: 'User link failed' });
+      return res.status(400).json('Não foi possível enviar o convite');
     }
   }
 }
